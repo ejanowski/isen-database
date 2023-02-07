@@ -1,9 +1,9 @@
 package com.ejanowski.demofirebase
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.IgnoreExtraProperties
+import com.google.firebase.database.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -14,14 +14,39 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        getUser("janowski.emeric@gmail.com", "aqaqaq")
         //writeNewUser()
         //createBooking()
-        createReservation()
+        //createReservation()
+    }
+
+    fun getUser(email: String, password: String) {
+        DataBaseHelper.database.getReference("users")
+            .orderByChild("email")
+            .equalTo(email)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    Log.d("dataBase", snapshot.toString())
+                    if(snapshot.exists()) {
+                        val user = snapshot.children.first().getValue(User::class.java)
+                        if(user?.password == password) {
+                            Log.d("dataBase","connected")
+                            // Connected
+                        }
+                    }
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Log.e("dataBase", error.toString())
+                }
+
+            })
     }
 
     fun writeNewUser() {
-        val user = User("emeric", "janowski.emeric@gmail.com", "aqaqaq",UUID.randomUUID().toString())
-        DataBaseHelper.database.child("users").child(user.UUID).setValue(user)
+        val user = User("emeric janowski", "emeric.janowski@it-ce.fr", "aqaqaq",UUID.randomUUID().toString())
+        DataBaseHelper.database.reference.child("users").child(user.uuid ?: "").setValue(user)
     }
 
     fun createReservation() {
@@ -31,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         val hours = mapOf("12" to "ac4fac74-4872-4553-b2c8-72fa5198c416")
         val reservation = Reservation(date, hours)
 
-        DataBaseHelper.database.child("Reservations").child(reservation.date).setValue(reservation)
+        DataBaseHelper.database.reference.child("Reservations").child(reservation.date).setValue(reservation)
     }
 
     fun createBooking() {
@@ -58,12 +83,15 @@ class MainActivity : AppCompatActivity() {
                 "", // 21
             ))
 
-        DataBaseHelper.database.child("occupationDays").child(occupationDay.date).setValue(occupationDay)
+        DataBaseHelper.database.reference.child("occupationDays").child(occupationDay.date).setValue(occupationDay)
     }
 }
 
 @IgnoreExtraProperties
-data class User(val username: String? = null, val email: String? = null, val password: String? = null, val UUID: String) {
+data class User(val username: String? = null,
+                val email: String? = null,
+                val password: String? = null,
+                val uuid: String? = null) {
     // Null default values create a no-argument default constructor, which is needed
     // for deserialization from a DataSnapshot.
 }

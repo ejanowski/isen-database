@@ -12,6 +12,14 @@
         android:theme="@style/Theme.DemoFirebase"
         tools:targetApi="31">
         <activity
+            android:name=".MaximeActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".CalendarActivity"
+            android:exported="true">
+        </activity>
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
