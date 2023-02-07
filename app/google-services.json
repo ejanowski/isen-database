@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "630775435212",
+    "firebase_url": "https://demofirebase-c9625-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "demofirebase-c9625",
+    "storage_bucket": "demofirebase-c9625.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:630775435212:android:47075aa2b7d9d18ff0d769",
+        "android_client_info": {
+          "package_name": "com.ejanowski.demofirebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "630775435212-8lie7sihbe6l8ftg9vp3d9m0gppq9lsl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD91ByPkEgzL0wKax7q9MMe8VIu5vPROYU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "630775435212-8lie7sihbe6l8ftg9vp3d9m0gppq9lsl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
